@@ -1,10 +1,12 @@
 #pragma once
+#include <istream>
 
 class Point
 {
 private:
 	double _x;
 	double _y;
+
 public:
 
 	// Constructors
@@ -18,6 +20,7 @@ public:
 	Point operator+(const Point& other);
 	Point& operator+=(const Point& other);
 	bool operator==(const Point& other);
+	friend std::istream& operator>>(std::istream& in, Point& p);
 
 	// Getters
 	double getX() const;

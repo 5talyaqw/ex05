@@ -32,6 +32,7 @@ bool Point::operator==(const Point& other)
 	return (_x == other._x) && (_y == other._y);
 }
 
+
 double Point::getX() const
 {
 	return _x;
@@ -48,4 +49,10 @@ double Point::distance(const Point& other)const
 	double dy = _y - other._y;
 
 	return std::sqrt(dx * dx + dy * dy);
+}
+
+std::istream& operator>>(std::istream& in, Point& p)
+{
+	in >> p._x >> p._y;
+	return in;
 }
