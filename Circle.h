@@ -21,9 +21,10 @@ public:
 	// Getters
 	Point getCenter()const;
 	double getRadius()const;
-	double getPerimeter()const;
-	double getArea()const;
-	void move(const Point& other);
+	double getPerimeter()const override;
+	double getArea()const override;
+
+	void move(const Point& other) override;
 
 	// Methods
 	void draw(const Canvas& canvas) override;

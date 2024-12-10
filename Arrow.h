@@ -14,7 +14,10 @@ public:
 	// Getters
 	Point getSource() const;
 	Point getDestination() const;
-	void move(const Point& other);
+	double getArea()const override;
+	double getPerimeter()const override;
+
+	void move(const Point& other)override;
 	
 	// Methods
 	void draw(const Canvas& canvas) override;

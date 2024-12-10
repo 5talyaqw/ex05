@@ -20,9 +20,9 @@ public:
 	std::string getName() const;
 
 	// Methods
-	double getArea() const;
-	double getPerimeter() const;
-	void move(const Point& other); // add the Point to all the points of shape
+	virtual double getArea()const = 0;
+	virtual double getPerimeter()const = 0;
+	virtual void move(const Point& other) = 0; // add the Point to all the points of shape
 	void printDetails() const;
 
 	virtual void draw(const Canvas& canvas) = 0;

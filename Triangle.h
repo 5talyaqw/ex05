@@ -11,7 +11,7 @@ public:
 	// Destructor
 	~Triangle();
 
-	double getArea() const;
+	double getArea() const override;
 
 	// Methods
 	void draw(const Canvas& canvas) override;

@@ -20,6 +20,6 @@ namespace myShapes
 		void draw(const Canvas& canvas) override;
 		void clearDraw(const Canvas& canvas) override;
 		
-		double getArea()const;
+		double getArea()const override;
 	};
 }

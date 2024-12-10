@@ -15,13 +15,14 @@ public:
 	~Point();
 
 	// Operators
-	Point operator+(const Point& other) const;
+	Point operator+(const Point& other);
 	Point& operator+=(const Point& other);
+	bool operator==(const Point& other);
 
 	// Getters
 	double getX() const;
 	double getY() const;
 
 	// Methods
-	double distance(Point& other);
+	double distance(const Point& other)const;
 };
