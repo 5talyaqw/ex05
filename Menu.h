@@ -8,9 +8,13 @@
 class Menu
 {
 public:
-
+	//constructor 
 	Menu();
+
+	// Destructor
 	~Menu();
+	
+	//Menu runner
 	void runMenu();
 	
 
@@ -18,9 +22,6 @@ private:
 	void addShape();
 	void modifyShape();
 	void deleteAllShapes();
-	void displayShapes();
-	void getShapeDetails(Shape* shape);
-	void removeShape(Shape* shape);
 	Canvas _canvas;
 	std::vector<Shape*> _shapes;
 };

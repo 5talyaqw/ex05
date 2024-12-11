@@ -2,15 +2,12 @@
 #include "Circle.h"
 #include "Arrow.h"
 #include "Triangle.h"
-#include "Rectangle.h"
+#include "MyRectangle.h"
 #include "Polygon.h"
 #include "Point.h"
 #include <iostream>
 
-Menu::Menu()
-{
-
-}
+Menu::Menu(){}
 
 Menu::~Menu()
 {
@@ -63,7 +60,7 @@ void Menu::addShape()
 {
     int choice;
     Shape* newShape = nullptr;
-    std::string shapeType, shapeName;
+    std::string shapeName;
 
     // Ask user to choose shape type
     std::cout << "Enter 0 to add a circle.\nEnter 1 to add an arrow.\nEnter 2 to add a triangle.\nEnter 3 to add a rectangle. ";
@@ -73,53 +70,92 @@ void Menu::addShape()
     {
     case 0:
     {
-        Point center;
-        double radius;
-        std::cout << "Enter center point (x, y): ";
-        std::cin >> center;
-        std::cout << "Enter radius: ";
+        double radius, x, y;
+        std::cout << "Please enter X: ";
+        std::cin >> x;
+        std::cout << "Please enter Y: ";
+        std::cin >> y;
+        std::cout << "Please enter radius: ";
         std::cin >> radius;
         std::cout << "Enter the name of the shape: ";
         std::cin >> shapeName;
+
+        Point center(x, y);
         newShape = new Circle(center, radius, "Circle", shapeName);
         break;
     }
     case 1:
     {
-        Point a, b;
+        double ax, ay, bx, by;
         std::string type;
-        std::cout << "Enter the source point (x, y): ";
-        std::cin >> a;
-        std::cout << "Enter the destination point (x, y): ";
-        std::cin >> b;
-        std::cout << "Enter type of arrow: ";
-        std::cin >> type;
+
+        std::cout << "Enter the X of point number: 1";
+        std::cin >> ax;
+        std::cout << "Enter the Y of point number: 1";
+        std::cin >> ay;
+
+        std::cout << "Enter the X of point number: 2 ";
+        std::cin >> bx;
+        std::cout << "Enter the Y of point number: 2 ";
+        std::cin >> by;
+
+        std::cout << "Enter the name of the shape: ";
+        std::cin >> shapeName;
+        Point a(ax, ay);
+        Point b(bx, by);
         newShape = new Arrow(a, b, type, shapeName);
         break;
     }
     case 2:
     {
+        double ax, ay, bx, by, cx, cy;
         Point a, b, c;
-        std::cout << "Enter point 1 (x, y): ";
-        std::cin >> a;
-        std::cout << "Enter point 2 (x, y): ";
-        std::cin >> b;
-        std::cout << "Enter point 3 (x, y): ";
-        std::cin >> c;
+        std::cout << "Enter the X of point number: 1 ";
+        std::cin >> ax;
+        std::cout << "Enter the Y of point number: 1 ";
+        std::cin >> ay;
+
+        std::cout << "Enter the X of point number: 2 ";
+        std::cin >> bx;
+        std::cout << "Enter the Y of point number: 2 ";
+        std::cin >> by;
+
+        std::cout << "Enter the X of point number: 3 ";
+        std::cin >> cx;
+        std::cout << "Enter the Y of point number: 3 ";
+        std::cin >> cy;
+
+        std::cout << "Enter the name of the shape: ";
+        std::cin >> shapeName;
+
         newShape = new Triangle(a, b, c, "Triangle", shapeName);
         break;
     }
     case 3:
     {
-        Point topLeft;
-        double length, width;
-        std::cout << "Enter top left point (x, y): ";
-        std::cin >> topLeft;
-        std::cout << "Enter length: ";
+        double x, y, length, width;
+
+        // Input for the top-left corner
+        std::cout << "Enter the X of the top-left corner: ";
+        std::cin >> x;
+        std::cout << "Enter the Y of the top-left corner: ";
+        std::cin >> y;
+
+        // Input for dimensions
+        std::cout << "Please enter the length of the shape: ";
         std::cin >> length;
-        std::cout << "Enter width: ";
+        std::cout << "Please enter the width of the shape: ";
         std::cin >> width;
-        newShape = new myShapes::Rectangle(topLeft, length, width, "Rectangle", shapeName);
+
+        // Input for the name of the shape
+        std::cout << "Enter the name of the shape: ";
+        std::cin >> shapeName;
+
+        // Create the top-left corner point
+        Point topLeftCorner(x, y);
+
+        // Construct the Rectangle object
+        newShape = new myShapes::MyRectangle(topLeftCorner, length, width, "Rectangle", shapeName);
         break;
     }
     default:
@@ -136,47 +172,87 @@ void Menu::addShape()
 
 void Menu::modifyShape()
 {
-    // Implement modification logic here
+    if (_shapes.empty())
+    {
+        std::cout << "No shapes available to modify.\n";
+        return;
+    }
+    int i = 0;
+    for (i = 0; i < _shapes.size(); i++)
+    {
+        std::cout << "Enter " << i  << " for " << _shapes[i]->getName() << "(" << _shapes[i]->getType() << ")\n";
+    }
+
+    size_t choice;
+    std::cin >> choice;
+
+    // Validate choice
+    if (choice < 0 || choice > _shapes.size())
+    {
+        std::cout << "Invalid choice. Returning to menu.\n";
+        return;
+    }
+
+    // Get the selected shape
+    Shape* selectedShape = _shapes[choice - 1];
+
+    // Display modification options
+    std::cout << "Enter 0 to Move the shape\n";
+    std::cout << "Enter 1 to Get shape details\n";
+    std::cout << "Enter 3 to Remove the shape\n";
+
+    int action;
+    std::cin >> action;
+
+    switch (action)
+    {
+    case 1:
+    {
+        // Move the shape
+        double newX, newY;
+        std::cout << "Please enter the X moving scale: ";
+        std::cin >> newX;
+        std::cout << "Please enter the Y moving scale: ";
+        std::cin >> newY;
+        Point cord(newX, newY);
+        selectedShape->move(cord);
+        std::cout << "Shape moved.\n";
+        break;
+    }
+    case 2:
+    {
+        // Get shape details
+        std::cout << selectedShape->getName() << "    ";
+        std::cout << selectedShape->getType() << "    ";
+        std::cout << selectedShape->getArea() << "    ";
+        std::cout << selectedShape->getPerimeter() << "    ";
+        break;
+    }
+    case 3:
+        // Remove the shape
+    {
+        _shapes.erase(_shapes.begin() + (choice - 1));
+        std::cout << "Shape removed.\n";
+        break;
+    }
+    default:
+        std::cout << "Invalid action.\n";
+        break;
+    }
 }
 
 void Menu::deleteAllShapes()
 {
-    //to do
+    if (_shapes.empty())
+    {
+        std::cout << "No shapes to delete.\n";
+        return;
+    }
+    int i = 0;
+    for (i = 0; i < _shapes.size();i++)
+    {
+        delete _shapes[i];
+    }
+    _shapes.clear();
 }
 
-void Menu::displayShapes()
-{
-    // Display all shapes
-    for (Shape* shape : _shapes)
-    {
-        std::cout << "Shape Name: " << shape->getName() << std::endl;
-        std::cout << "Shape Type: " << shape->getType() << std::endl;
-        std::cout << "Area: " << shape->getArea() << std::endl;
-        std::cout << "Perimeter: " << shape->getPerimeter() << std::endl;
-    }
-}
-
-void Menu::getShapeDetails(Shape* shape)
-{
-    if (shape)
-    {
-        std::cout << "Shape Name: " << shape->getName() << std::endl;
-        std::cout << "Shape Type: " << shape->getType() << std::endl;
-        std::cout << "Area: " << shape->getArea() << std::endl;
-        std::cout << "Perimeter: " << shape->getPerimeter() << std::endl;
-    }
-}
-
-void Menu::removeShape(Shape* shape)
-{
-    if (shape)
-    {
-        // Clear the shape from the canvas and delete it from the vector
-        if (shape->getType() == "Circle")
-        {
-            _canvas.clear_circle(); //
-        }
-        _shapes.erase(std::remove(_shapes.begin(), _shapes.end(), shape), _shapes.end());
-        delete shape;
-    }
-}

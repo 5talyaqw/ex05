@@ -1,7 +1,7 @@
-#include "Rectangle.h"
+#include "MyRectangle.h"
 #include <iostream>
 
-myShapes::Rectangle::Rectangle(Point a, double length, double width, std::string type, std::string name)
+myShapes::MyRectangle::MyRectangle(Point a, double length, double width, std::string type, std::string name)
 	: Polygon(type, name)
 {
 	_points.push_back(a); // bottom left
@@ -10,20 +10,20 @@ myShapes::Rectangle::Rectangle(Point a, double length, double width, std::string
 	_points.push_back(Point(a.getX() + length, a.getY() + width));
 }
 
-myShapes::Rectangle::~Rectangle()
+myShapes::MyRectangle::~MyRectangle()
 {}
 
-void myShapes::Rectangle::draw(const Canvas& canvas)
+void myShapes::MyRectangle::draw(const Canvas& canvas)
 {
 	canvas.draw_rectangle(_points[0], _points[1]);
 }
 
-void myShapes::Rectangle::clearDraw(const Canvas& canvas)
+void myShapes::MyRectangle::clearDraw(const Canvas& canvas)
 {
 	canvas.clear_rectangle(_points[0], _points[1]);
 }
 
-double myShapes::Rectangle::getArea() const
+double myShapes::MyRectangle::getArea() const
 {
 	double len = _points[1].getX() - _points[0].getX();
 	double wid = _points[2].getY() - _points[0].getY();

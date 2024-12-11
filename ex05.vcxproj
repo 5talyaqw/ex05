@@ -147,7 +147,7 @@
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Point.h" />
     <ClCompile Include="Polygon.cpp" />
-    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="MyRectangle.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Shape.h" />
     <ClCompile Include="Triangle.cpp" />
@@ -159,7 +159,7 @@
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Polygon.h" />
-    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="MyRectangle.h" />
     <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
